@@ -34,13 +34,21 @@ btnAdd.addEventListener("click", function () {
     employeeId = employeeList[employeeList.length - 1].id + 1;
   }
 
-  let employeeObj = {
-    id: employeeId,
-    name: name,
-    surname: surname,
-    salary: salary,
-  };
+  
+    let employeeObj = {
+      id: employeeId,
+      name: name,
+      surname: surname,
+      salary: salary,
+    };
+  
+if(name === '' || surname === '' || salary === ''){
+  alert('Please fill all empty blanks...!')
+}
+else{
   employeeList.push(employeeObj);
+
+}
   localStorage.setItem("employees", JSON.stringify(employeeList));
 
 
@@ -149,6 +157,7 @@ function updateSalary(empID, newValue){
 
 
 
+// For filtering by salary
   let filterBtn = document.querySelector('#filter-salary')
 
   filterBtn.addEventListener('click', function(){
@@ -157,17 +166,68 @@ function updateSalary(empID, newValue){
   let maxValue = document.querySelector('#max-salary').value
   let employeeList = JSON.parse(localStorage.getItem("employees"));
  
+  document.querySelector(".employee-data").innerHTML = '';
+
   // console.log(minValue);
   employeeList.forEach(employee => {
-    if(employee.salary >= minValue && employee.salary <= maxValue){
-     console.log(employee);
-    }
+    let shownSalaryList = ''
+    if(Number(employee.salary) >= minValue && Number(employee.salary) <= maxValue){
+      
+
+      shownSalaryList = `
+        
+      <tr class="emp-list align-items-center">
+       <td>${employee.id}</td>
+       <td><input onchange='updateName(${employee.id}, value)' disabled class="text-center ms-4 mt-2" type="text" value="${employee.name}"></td>
+       <td><input onchange='updateSurname(${employee.id}, value)' disabled class="text-center ms-4 mt-2" type="text" value="${employee.surname}"></td>
+       <td><input onchange='updateSalary(${employee.id}, value)' disabled class="text-center ms-4 mt-2" type="number" value="${employee.salary}"></td>
+       <td><button onclick="empEdit(event.target)" class="btn btn-warning edit-data" style="margin-right:5px"><i class="fa-solid fa-user-pen"></i></button></td>
+       <td><button onclick="empDel(${employee.id})" class="btn btn-danger delete-data"><i class="fa-solid fa-trash-can"></i></button></td>
+   </tr>
+   
+       `
+       document.querySelector(".employee-data").innerHTML += shownSalaryList;
+
+      }
+    })
+  })
+
+
+  let searchBtn = document.querySelector('#btn-search')
+
+  searchBtn.addEventListener('click', function(){
+     let searchName = document.querySelector('#search-name').value.toUpperCase();
+     let employeeList = JSON.parse(localStorage.getItem("employees"));
+     let shownSearchList = ''
+    document.querySelector(".employee-data").innerHTML = '';
+
+
+     employeeList.forEach(employee =>{
+      if(employee.name.toUpperCase().includes(searchName)   || employee.surname.toUpperCase().includes(searchName)){
+        shownSearchList = `
+        
+        <tr class="emp-list align-items-center">
+         <td>${employee.id}</td>
+         <td><input onchange='updateName(${employee.id}, value)' disabled class="text-center ms-4 mt-2" type="text" value="${employee.name}"></td>
+         <td><input onchange='updateSurname(${employee.id}, value)' disabled class="text-center ms-4 mt-2" type="text" value="${employee.surname}"></td>
+         <td><input onchange='updateSalary(${employee.id}, value)' disabled class="text-center ms-4 mt-2" type="number" value="${employee.salary}"></td>
+         <td><button onclick="empEdit(event.target)" class="btn btn-warning edit-data" style="margin-right:5px"><i class="fa-solid fa-user-pen"></i></button></td>
+         <td><button onclick="empDel(${employee.id})" class="btn btn-danger delete-data"><i class="fa-solid fa-trash-can"></i></button></td>
+     </tr>
+     
+         `
+       document.querySelector(".employee-data").innerHTML += shownSearchList;
+
+      }
+     })
+
+  })
+       
+    
    
 
 
-  })
  
-  })
 
 
 
