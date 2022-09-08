@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+i {
+  pointer-events: none;
+}
+
+.employee-data input {
+  border: none;
+  outline: none;
+}
+.employee-data button {
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+.employee-data button i {
+  font-size: 10px;
+}
+
+#filter-data button {
+  padding: 5px 10px;
+  background-color: #000;
+  border-radius: 10px;
+  color: #fff;
+}
+#filter-data input {
+  margin-top: 15px;
+  padding: 5px 20px;
+  border-radius: 10px;
+  color: #000;
+}
+#filter-data #search-name {
+  width: 456px;
+}
+#filter-data #btn-search {
+  padding: 5px 27px;
+}
+
+.hidden {
+  display: none;
+}/*# sourceMappingURL=style.css.map */
